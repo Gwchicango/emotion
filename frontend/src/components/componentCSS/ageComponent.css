@@ -1,0 +1,92 @@
+.age-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+  transition: transform 0.2s, box-shadow 0.2s;
+  color: black;
+}
+
+.age-component:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.age-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.age-slider-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.age-label {
+  font-size: 18px;
+  color: #000000;
+  margin: 0 15px;
+}
+
+.age-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 10px;
+  background: #000000;
+  border-radius: 5px;
+  outline: none;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.age-slider:hover {
+  opacity: 1;
+}
+
+.age-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background: #4285f4;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background 0.2s;
+}
+
+.age-slider::-webkit-slider-thumb:hover {
+  background: #3367d6;
+}
+
+.age-slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  background: #4285f4;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background 0.2s;
+}
+
+.age-slider::-moz-range-thumb:hover {
+  background: #3367d6;
+}
+
+.age-likely {
+  font-size: 22px;
+  color: #000000;
+  margin-top: 15px;
+  text-align: center;
+}

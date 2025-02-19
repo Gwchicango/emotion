@@ -1,0 +1,144 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff; /* Fondo blanco */
+  color: #333;
+  height: 100vh;
+  overflow: hidden; /* Evita el scroll innecesario */
+}
+
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('../../utils/Login.avif'); /* Ruta a tu imagen de fondo */
+  background-size: cover; /* Asegura que la imagen cubra todo el contenedor */
+  background-position: center; /* Centra la imagen */
+  padding: 20px; /* Añadido padding para mejor visualización en pantallas pequeñas */
+  box-sizing: border-box; /* Asegura que el padding no cause overflow */
+}
+
+.register-box {
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo negro con más transparencia */
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  box-sizing: border-box; /* Asegura que el padding no cause overflow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Añadida transición para efectos */
+}
+
+.register-box:hover {
+  transform: translateY(-10px); /* Efecto de elevación al pasar el ratón */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al pasar el ratón */
+}
+
+.register-box h1 {
+  margin-bottom: 20px;
+  color: #ffffff; /* Texto blanco */
+  font-size: 24px;
+}
+
+.register-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.register-form .form-group {
+  margin-bottom: 20px;
+  text-align: left;
+  grid-column: span 2; /* Por defecto, cada grupo ocupa ambas columnas */
+}
+
+.register-form .form-group.half-width {
+  grid-column: span 1; /* Para los campos que deben ocupar solo una columna */
+}
+
+.register-form label {
+  display: block;
+  margin-bottom: 5px;
+  color: #ffffff; /* Texto blanco */
+  font-weight: bold;
+}
+
+.register-form input,
+.register-form select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #ffffff; /* Fondo blanco */
+  color: #333; /* Texto oscuro */
+  font-size: 14px;
+  box-sizing: border-box; /* Asegura que el padding no cause overflow */
+}
+
+.register-form input:focus,
+.register-form select:focus {
+  outline: none;
+  border-color: #007bff; /* Borde azul */
+  background-color: #f4f4f9; /* Fondo gris claro */
+}
+
+.register-button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff; /* Azul */
+  color: #ffffff; /* Texto blanco */
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+  box-sizing: border-box; /* Asegura que el padding no cause overflow */
+  grid-column: span 2; /* El botón de registro ocupa ambas columnas */
+}
+
+.register-button:hover {
+  background-color: #0056b3; /* Azul oscuro */
+  transform: translateY(-2px);
+}
+
+.register-button:active {
+  background-color: #004085; /* Azul más oscuro */
+  transform: translateY(0);
+}
+
+.register-links {
+  margin-top: 20px;
+  grid-column: span 2; /* Los enlaces ocupan ambas columnas */
+}
+
+.register-links a {
+  color: #007bff; /* Azul */
+  text-decoration: none;
+  margin: 0 10px;
+  transition: color 0.2s;
+}
+
+.register-links a:hover {
+  color: #0056b3; /* Azul oscuro */
+}
+
+.message {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}

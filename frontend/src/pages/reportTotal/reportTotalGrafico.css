@@ -1,0 +1,37 @@
+.report-total-container {
+  padding: 20px;
+  height: 100vh; /* Altura completa de la ventana */
+  overflow-y: auto; /* Activar el scroll vertical */
+}
+
+.nrc-selector {
+  margin-bottom: 20px;
+}
+
+.report-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.report-section {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-x: auto; /* Activar el scroll horizontal */
+}
+
+.emotion-section {
+  margin-bottom: 20px;
+}
+
+.charts-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 20px;
+}

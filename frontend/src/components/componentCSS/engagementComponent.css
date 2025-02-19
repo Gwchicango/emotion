@@ -1,0 +1,83 @@
+#rangesContainer {
+  width: 100%;
+  height: auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin-bottom: 20px; /* Add bottom margin for separation */
+}
+
+#rangesContainer:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.rangeContainer {
+  display: grid; /* Use grid layout */
+  grid-template-rows: repeat(auto-fit, minmax(0, auto)); /* Rows for each item */
+  gap: 20px; /* Space between items */
+  padding: 20px;
+  background-color: #000000; /* Light background for items */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px; /* Add top margin for separation */
+}
+
+.rangeContainer .rangeItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+  margin-bottom: 10px; /* Add bottom margin for separation */
+}
+
+.rangeContainer .rangeItem:hover {
+  background-color: #f0f0f0;
+}  
+
+.report-button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.report-button {
+  background-color: #4CAF50; /* Color de fondo */
+  color: white; /* Color del texto */
+  padding: 10px 20px; /* Espaciado interno */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  font-size: 16px; /* Tamaño de la fuente */
+  transition: background-color 0.3s ease; /* Transición suave para el cambio de color */
+  /*Subir mas arriba el btn*/
+  margin-top: 20px;
+}
+
+.report-button:hover {
+  background-color: #45a049; /* Color de fondo al pasar el cursor */
+}
+
+.start-button {
+  background-color: #4CAF50; /* Color de fondo */
+  color: white; /* Color del texto */
+  padding: 10px 20px; /* Espaciado interno */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  font-size: 16px; /* Tamaño de la fuente */
+  transition: background-color 0.3s ease; /* Transición suave para el cambio de color */
+  /*Subir mas arriba el btn*/
+  margin-top: 10px;
+}
+
+.start-button:hover {
+  background-color: #45a049; /* Color de fondo al pasar el cursor */
+}
+
+/* Add a new class for the button */

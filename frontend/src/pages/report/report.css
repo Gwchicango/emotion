@@ -1,0 +1,104 @@
+.report-page {
+  padding: 20px;
+  background-color: #f4f7f6;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Alinea los elementos al inicio */
+  overflow-x: hidden; /* Evita el desbordamiento horizontal de la página */
+}
+
+.report-container {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  transition: box-shadow 0.3s ease;
+  overflow-x: auto; /* Agrega scroll horizontal */
+}
+
+.report-container:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.report-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.report-header h2 {
+  font-size: 2em;
+  color: #333;
+}
+
+.report-details {
+  margin-bottom: 20px;
+}
+
+.report-table-container {
+  overflow-x: auto; /* Agrega scroll horizontal */
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 14px; /* Reduce el tamaño de la fuente */
+}
+
+.report-table th, .report-table td {
+  border: 1px solid #ddd;
+  padding: 8px; /* Reduce el padding */
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.report-table th {
+  background-color: #e9ecef;
+  font-weight: bold;
+  color: #333;
+}
+
+.report-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.report-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.report-chart {
+  margin-top: 20px;
+}
+
+.back-button, .view-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover, .view-button:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .report-container {
+    padding: 20px;
+  }
+
+  .report-header h2 {
+    font-size: 1.5em;
+  }
+
+  .report-details p {
+    font-size: 0.9em;
+  }
+}

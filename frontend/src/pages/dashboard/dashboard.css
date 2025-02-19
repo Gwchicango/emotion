@@ -1,0 +1,134 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: rgb(255, 255, 255);
+  overflow: hidden;
+}
+
+.App-body {
+  flex: 1;
+  overflow-y: auto; /* Permite el desplazamiento */
+  padding: 20px;
+}
+
+.video-container {
+  display: grid;
+  align-items: center;
+  justify-content: start;
+  margin-bottom: 10px;
+  position: relative;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+
+}
+
+.video-element {
+  display: grid;
+  place-items: center; /* Centra el contenido tanto horizontal como verticalmente */
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 16 / 9; /* Garantiza una relación de aspecto para videos */
+  border: 2px solid #ccc;
+  border-radius: 12px; /* Bordes más suaves */
+  background-color: #f9f9f9; /* Fondo gris claro para cuando no haya contenido */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Agrega un sombreado para destacar el elemento */
+  overflow: hidden; /* Asegura que el contenido dentro no se salga del contenedor */
+  transition: transform 0.3s, box-shadow 0.3s; /* Agrega una animación al hacer hover */
+}
+
+.video-element:hover {
+  transform: scale(1.03); /* Aumenta ligeramente el tamaño al pasar el ratón */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Realza el efecto visual */
+}
+
+
+.capture-button,
+.emotion-detection-button {
+  background-color: #007bff; /* Color de fondo azul */
+  color: white;
+  border: none;
+  padding: 10px 20px; /* Aumentar el padding */
+  font-size: 1rem; /* Ajustar tamaño de fuente */
+  cursor: pointer;
+  border-radius: 5px; /* Bordes redondeados */
+  margin: 10px 5px; /* Espaciado entre botones */
+  transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.capture-button:hover,
+.emotion-detection-button:hover {
+  background-color: #0056b3; /* Color de fondo al pasar el ratón */
+}
+
+.capture-button:disabled,
+.emotion-detection-button:disabled {
+  background-color: #cccccc; /* Color de fondo cuando está deshabilitado */
+  cursor: not-allowed; /* Cambiar el cursor cuando está deshabilitado */
+}
+.separator-line {
+  border: none;
+  border-top: 2px solid #000000;
+  margin: 20px 0; /* Espaciado superior e inferior */
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* La primera columna será dos veces más grande que la segunda */
+  gap: 20px;
+  padding: 10px;
+  background-color: #000000;
+  color: #ffffff;
+  border-radius: 10px;
+}
+
+.expand-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px; /* Reducir el padding del botón */
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 12px; /* Reducir el tamaño de la fuente del botón */
+}
+
+.expand-button:hover {
+  background-color: #0056b3;
+}
+.App-footer {
+  background-color: #282c34;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: sticky;
+  bottom: 0;
+}
+.component-feature-component{
+  display: grid;
+  align-items: center;
+  text-align: center;
+  grid-template-columns: 2fr 1fr; /* La primera columna será dos veces más grande que la segunda */
+  gap: 20px;
+  padding: 10px;
+  background-color: #000000;
+  color: #ffffff;
+  border-radius: 10px;
+
+}

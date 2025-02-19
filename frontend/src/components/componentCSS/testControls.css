@@ -1,0 +1,10 @@
+/* Controls */
+.test-controls {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .start-button {
+    min-width: 150px;
+  }

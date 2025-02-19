@@ -1,0 +1,19 @@
+#faceTracker {
+  position: absolute;
+  border: 2px solid #ff1d1d;
+  box-sizing: border-box; /* Ensure the border is included in the element's dimensions */
+  border-radius: 8px; /* Rounded corners for a smoother look */
+  transition: border-color 0.3s; /* Smooth transition for border color changes */
+}
+
+#faceTrackerContainer {
+  position: absolute;
+  width: 39%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  pointer-events: none; /* Ensure the container does not interfere with user interactions */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

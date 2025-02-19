@@ -1,0 +1,22 @@
+.App-nav {
+  display: grid;
+  justify-content:end; 
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #54595b27; 
+}
+
+.App-nav ul {
+  display: flex;
+  list-style: none; 
+}
+
+.App-nav li {
+  padding-left: 1rem; 
+}
+
+.App-nav a {
+  text-decoration: none;
+  color: #0d47a1
+}
+

@@ -1,0 +1,32 @@
+.App-header {
+  background-color: #333; /* Cambiar a un gris oscuro */
+  padding: 10px 20px; /* Aumentar el padding */
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: space-between; /* Distribuir espacio entre elementos */
+  align-items: center; /* Alinear elementos verticalmente */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añadir sombra */
+}
+
+.app-title {
+  font-size: 1.5rem; /* Ajustar tamaño de fuente */
+  margin: 0;
+  flex: 1; /* Permitir que el título ocupe el espacio disponible */
+  text-align: left; /* Alinear el título a la izquierda */
+}
+
+.logout-button {
+  background-color: #ff4d4d; /* Color de fondo rojo */
+  color: white;
+  border: none;
+  padding: 10px 20px; /* Aumentar el padding */
+  font-size: 1rem; /* Ajustar tamaño de fuente */
+  cursor: pointer;
+  border-radius: 5px; /* Bordes redondeados */
+  transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.logout-button:hover {
+  background-color: #ff1a1a; /* Color de fondo al pasar el ratón */
+}

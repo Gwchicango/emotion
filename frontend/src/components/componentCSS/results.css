@@ -1,0 +1,89 @@
+/* Results */
+.results {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.result {
+  background-color: #f8fafc;
+  padding: 1rem;
+  border-radius: 6px;
+}
+
+.result .label {
+  color: #64748b;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.result .value {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.result .value.correct {
+  color: #10b981;
+}
+
+.result .value.incorrect {
+  color: #ef4444;
+}
+
+.result .value.omissions {
+  color: #f59e0b;
+}
+
+.result .value.commissions {
+  color: #f97316;
+}
+
+.result .value.total-errors {
+  color: #e11d48;
+}
+
+.result .value.effectiveness-total {
+  color: #3b82f6;
+}
+
+.result .value.concentration-index {
+  color: #6366f1;
+}
+
+.result .value.variation-index {
+  color: #8b5cf6;
+}
+
+/* Block results */
+.block-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.block-result {
+  background-color: #f8fafc;
+  padding: 1rem;
+  border-radius: 6px;
+}
+
+.block-result h5 {
+  margin: 0 0 0.5rem 0;
+  color: #1e293b;
+}
+
+.block-result p {
+  margin: 0.25rem 0;
+  font-size: 0.875rem;
+  color: #64748b;
+}

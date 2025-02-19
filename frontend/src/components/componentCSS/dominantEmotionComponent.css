@@ -1,0 +1,72 @@
+.dominant-emotion-component {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #ffffff;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin: 20px 0;
+}
+
+.dominant-emotion-component:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dominant-emotion-title {
+  font-size: 1.8em;
+  margin-bottom: 15px;
+  color: #333;
+  font-weight: 600;
+  animation: slideIn 1s ease-in-out;
+}
+
+.dominant-emotion-value {
+  font-size: 1.4em;
+  color: #007bff;
+  font-weight: 500;
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.emocion-dominante-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.emocion-dominante-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.emocion-dominante-texto {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
