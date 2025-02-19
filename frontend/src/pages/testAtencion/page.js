@@ -453,13 +453,13 @@ const D2AttentionTest = () => {
             </React.Fragment>
           ))}
         </div>
-        {showReportButton && (
+        {/*showReportButton && (
         <div className="report-button-container">
           <Button onClick={handleViewReport} className="report-button">
             Ver Reportes
           </Button>
         </div>
-      )}
+      )*/}
 
         {testComplete && (
           
