@@ -50,43 +50,55 @@ const D2AttentionTest = () => {
     };
   }, []);
 
-  const startTest = async () => {
-    try {
-      // Crear una nueva sesión
-      const id_p = parseInt(sessionStorage.getItem('idInterno'), 10);
-      setFechaInicio(new Date().toISOString())
-      const nuevaSesion = {
-        idSeccion: Math.floor(Math.random() * 1000), // Genera un ID de sesión aleatorio
-        fechaHoraInicio: null,
-        fechaHoraFin: null, // Se actualizará al finalizar el test
-        persona: { id: id_p }, // Reemplaza con el ID de la conferencia correspondiente
+       useEffect(() => {
+      const initializeVideo = async () => {
+        if (videoEl.current && aiSdkState === "ready" && mphToolsState === "ready") {
+          const { source, start } = await getAiSdkControls();
+          await source.useCamera({
+            toVideoElement: videoEl.current,
+          });
+          await start();
+        }
       };
-      const response = await crearSeccion(nuevaSesion);
-      setIdSesion(response.id); // Guarda el idSesion en el estado
-      console.log('Sesión creada:', response);
-  
-      setIsActive(true);
-      setTimeLeft(20);
-      setCurrentLine(0);
-      setTestComplete(false);
-      setSelections([]);
-      setShowInstructions(false);
-      setTestLines(generateTestLines());
-      setElapsedTime(0); // Reiniciar el tiempo transcurrido
-      //autoMark(); // Llamar a la función de automarcado
-  
-      videoEl.current = document.getElementById("videoEl");
-      if (aiSdkState === "ready" && mphToolsState === "ready") {
-        const { source, start } = await getAiSdkControls();
-        await source.useCamera({
-          toVideoElement: videoEl.current,
-        });
-        await start();
+    
+      initializeVideo();
+    }, [aiSdkState, mphToolsState, videoEl.current]);
+    
+    const startTest = async () => {
+      try {
+        // Crear una nueva sesión
+        const id_p = parseInt(sessionStorage.getItem('idInterno'), 10);
+        setFechaInicio(new Date().toISOString());
+        const nuevaSesion = {
+          idSeccion: Math.floor(Math.random() * 1000), // Genera un ID de sesión aleatorio
+          fechaHoraInicio: null,
+          fechaHoraFin: null, // Se actualizará al finalizar el test
+          persona: { id: id_p }, // Reemplaza con el ID de la conferencia correspondiente
+        };
+        const response = await crearSeccion(nuevaSesion);
+        setIdSesion(response.id); // Guarda el idSesion en el estado
+        console.log('Sesión creada:', response);
+    
+        setIsActive(true);
+        setTimeLeft(20);
+        setCurrentLine(0);
+        setTestComplete(false);
+        setSelections([]);
+        setShowInstructions(false);
+        setTestLines(generateTestLines());
+        setElapsedTime(0); // Reiniciar el tiempo transcurrido
+        //autoMark(); // Llamar a la función de automarcado
+    
+        videoEl.current = document.createElement("video");
+        videoEl.current.id = "videoEl";
+        videoEl.current.className = "video-element";
+        videoEl.current.autoPlay = true;
+        videoEl.current.playsInline = true;
+        document.body.appendChild(videoEl.current);
+      } catch (error) {
+        console.error('Error al iniciar el test y guardar la sesión:', error);
       }
-    } catch (error) {
-      console.error('Error al iniciar el test y guardar la sesión:', error);
-    }
-  };
+    };
   
   const endTest = useCallback(async () => {
     try {
@@ -280,6 +292,8 @@ const D2AttentionTest = () => {
   };
 
 
+
+
    const calculateResults = () => {
     const scoringLines = testLines.slice(1, 13); // Excluir líneas 1 y 14
     const scoringSelections = selections.filter(s => s.line >= 1 && s.line < 13); // Excluir selecciones de líneas 1 y 14
@@ -417,7 +431,7 @@ const D2AttentionTest = () => {
               1. Marque todas las letras 'p' que tengan exactamente DOS marcas
               en total (arriba y/o abajo).
             </p>
-            <p>2. Tiene 2 segundos por línea</p>
+            <p>2. Tiene 20 segundos por línea</p>
             <p>3. Solo puede marcar elementos en la línea activa.</p>
             <p>4. Sea lo más rápido y preciso posible.</p>
           </div>
@@ -467,9 +481,15 @@ const D2AttentionTest = () => {
         )}
       </div>
 
-      {isActive && (
+            {isActive && (
         <div className="floating-video-container">
-          <video id="videoEl" className="video-element" autoPlay playsInline></video>
+          <div className="timer-container">
+            <div className="timer">
+              <Timer className="icon" />
+              <span>{timeLeft}s</span>
+            </div>
+            <div className="line-info">Línea {currentLine + 1}/14</div>
+          </div>
           <FaceTrackerComponent videoEl={videoEl} idSesion={idSesion}></FaceTrackerComponent>
           <EmotionBarsComponent videoEl={videoEl} idSesion={idSesion}></EmotionBarsComponent>
           <EngagementComponent videoEl={videoEl} idSesion={idSesion}></EngagementComponent>

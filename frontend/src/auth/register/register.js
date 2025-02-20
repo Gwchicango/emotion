@@ -18,12 +18,23 @@ function Register() {
 
   const handleNombreChange = (e) => {
     const value = e.target.value;
-    if (/^[a-zA-Z\s]*$/.test(value)) {
+    if (/^[a-zA-Z\sñÑ]*$/.test(value)) {
       setNombre(value);
     } else {
       setMessage('El nombre no puede contener números');
       setMessageType('error');
     }
+  };
+
+  const calculateAge = (birthDate) => {
+    const today = new Date();
+    const birthDateObj = new Date(birthDate);
+    let age = today.getFullYear() - birthDateObj.getFullYear();
+    const monthDifference = today.getMonth() - birthDateObj.getMonth();
+    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDateObj.getDate())) {
+      age--;
+    }
+    return age;
   };
 
   const handleSubmit = async (e) => {
@@ -39,6 +50,14 @@ function Register() {
     // Validar que las contraseñas coincidan
     if (password !== confirmPassword) {
       setMessage('Las contraseñas no coinciden');
+      setMessageType('error');
+      return;
+    }
+
+    // Validar que la edad sea mayor o igual a 18 años
+    const age = calculateAge(fechaNacimiento);
+    if (age < 18) {
+      setMessage('Debes tener al menos 18 años para registrarte');
       setMessageType('error');
       return;
     }
@@ -148,7 +167,6 @@ function Register() {
               <option value="">Selecciona tu género</option>
               <option value="Masculino">Masculino</option>
               <option value="Femenino">Femenino</option>
-              <option value="Otro">Otro</option>
             </select>
           </div>
           <div className="form-group half-width">
@@ -160,9 +178,14 @@ function Register() {
               required
             >
               <option value="">Selecciona tu NRC</option>
-              <option value="1111">1111</option>
-              <option value="NRC2">NRC2</option>
-              <option value="NRC3">NRC3</option>
+              <option value="3387">3387</option>
+              <option value="3391">3391</option>
+              <option value="3393">3393</option>
+              <option value="1946">1946</option>
+              <option value="1947">1947</option>
+              <option value="1948">1948</option>
+              <option value="1949">1949</option>
+              <option value="IASA">IASA</option>
             </select>
           </div>
           <button type="submit" className="register-button">Regístrate</button>

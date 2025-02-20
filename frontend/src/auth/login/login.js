@@ -82,7 +82,6 @@ function Login({ setIsAuthenticated }) {
           </form>
           <div className="login-links">
             <a href="/register" className="register-link">Regístrate</a>
-            <a href="/forgot-password" className="forgot-password-link">Recuperar contraseña</a>
           </div>
         </div>
       )}

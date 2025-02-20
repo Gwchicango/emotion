@@ -79,6 +79,8 @@
   align-items: center;
   overflow-x: auto;
   margin-bottom: 1rem; /* Añade espacio debajo de cada línea */
+  cursor: pointer; /* Cambia el cursor a una mano */
+
 
 }
 
@@ -89,16 +91,17 @@
 
 .floating-video-container {
   position: fixed;
-  bottom: 20px;
+  bottom: 320px;
   right: 20px;
   width: 200px;
   height: 150px;
   z-index: 1000;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.5);
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
+
 
 .floating-video-container video {
   width: 100%;
@@ -114,7 +117,7 @@
 .line-items {
   display: flex;
   flex-wrap: nowrap;
-  gap: 0.85rem; /* Añade espacio entre los elementos */
+  gap: 0.3rem; /* Añade espacio entre los elementos */
   padding: 0.6rem; /* Añade espacio alrededor de los elementos */
 }
 
@@ -124,14 +127,17 @@
   margin: 1rem 0; /* Añade espacio alrededor de la línea de separación */
 }
 
+.test-item {
+  width: 20px;
+}
+
 .test-item:hover:not(.inactive) {
   background-color: #dfe17b;
-  width: 20px;
 }
 
 .test-item.selected {
   background-color: #ffeb3b;
-  transform: scale(1.1);
+  width: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   
 }
