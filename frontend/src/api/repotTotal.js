@@ -60,3 +60,37 @@ export const obtenerParticipantesPorNrcInforme = async (nrc) => {
     throw error;
   }
 }
+
+export const obtenerDatosCombinados = async () => {
+  try {
+    const [analisis, participaciones, informes] = await Promise.all([
+      fetch(`${API_URL}/analisis-tiempo-real`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then(response => response.json()),
+      fetch(`${API_URL}/participantessesiones`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then(response => response.json()),
+      fetch(`${API_URL}/informes`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then(response => response.json())
+    ]);
+
+    return {
+      analisis,
+      participaciones,
+      informes
+    };
+  } catch (error) {
+    console.error('Error al obtener los datos combinados:', error);
+    throw error;
+  }
+}

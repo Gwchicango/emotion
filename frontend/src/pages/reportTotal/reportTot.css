@@ -12,6 +12,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  overflow-x: auto; /* Activar el scroll horizontal */
 }
 
 .report-section {
@@ -25,11 +26,12 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
+  font-size: 12px; /* Reducir el tamaño de la fuente */
 }
 
 th, td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 4px; /* Reducir el padding */
   text-align: left;
 }
 
