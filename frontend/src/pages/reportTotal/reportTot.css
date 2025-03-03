@@ -43,3 +43,18 @@ th {
   color: red;
   margin-bottom: 20px;
 }
+
+.download-button {
+  background-color: #4CAF50; /* Verde */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.download-button:hover {
+  background-color: #45a049; /* Verde oscuro */
+}

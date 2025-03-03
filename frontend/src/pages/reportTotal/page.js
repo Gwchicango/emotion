@@ -1,28 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { obtenerDatosCombinados } from '../../api/repotTotal';
+import { obtenerDatosCombinados, obtenerDatosCombinadosNRC } from '../../api/repotTotal';
+import NrcSelector from '../../components/NrcSelector'; // Asegúrate de ajustar la ruta de importación según tu estructura de archivos
 import './reportTot.css';
 
 function ReportTotal() {
   const [datosCombinados, setDatosCombinados] = useState(null);
   const [error, setError] = useState('');
+  const [nrc, setNrc] = useState(''); // Estado para el NRC seleccionado
 
   useEffect(() => {
     const fetchDatosCombinados = async () => {
       try {
-        const data = await obtenerDatosCombinados(); // Llama a la función directamente
+        let data;
+        if (nrc) {
+          data = await obtenerDatosCombinadosNRC(nrc); // Llama a la función con el NRC seleccionado
+        } else {
+          data = await obtenerDatosCombinados(); // Llama a la función directamente
+        }
         setDatosCombinados(data);
       } catch (error) {
         setError(error.message);
       }
     };
 
-    fetchDatosCombinados(); // Llama a la función cuando el componente se monta
-  }, []); // Sin dependencias, se ejecuta solo una vez al montar el componente
+    fetchDatosCombinados(); // Llama a la función cuando el componente se monta o cuando cambia el NRC
+  }, [nrc]); // Dependencia en el NRC
 
   const agruparDatosPorIdSeccion = (data) => {
     const agrupados = {};
 
-    // Función para inicializar un grupo si no existe
     const inicializarGrupo = (idSeccion) => {
       if (!agrupados[idSeccion]) {
         agrupados[idSeccion] = {
@@ -34,7 +40,6 @@ function ReportTotal() {
       }
     };
 
-    // Agrupar datos de análisis
     if (Array.isArray(data.analisis)) {
       data.analisis.forEach(item => {
         if (item.idSeccion) {
@@ -44,7 +49,6 @@ function ReportTotal() {
       });
     }
 
-    // Agrupar datos de participaciones
     if (Array.isArray(data.participaciones)) {
       data.participaciones.forEach(item => {
         if (item.idSeccion) {
@@ -54,7 +58,6 @@ function ReportTotal() {
       });
     }
 
-    // Agrupar datos de informes
     if (Array.isArray(data.informes)) {
       data.informes.forEach(item => {
         if (item.seccionTest && item.seccionTest.id) {
@@ -80,53 +83,149 @@ function ReportTotal() {
       surprise: 0,
       neutral: 0,
     };
-
+  
+    // Contadores para valores válidos (no cero)
+    const contadores = {
+      activacion: 0,
+      valencia: 0,
+      atencion: 0,
+      angry: 0,
+      disgust: 0,
+      fear: 0,
+      happy: 0,
+      sad: 0,
+      surprise: 0,
+      neutral: 0,
+    };
+  
     // Calcular promedios de análisis
     if (grupo.analisis.length > 0) {
       grupo.analisis.forEach(item => {
-        promedios.activacion += parseFloat(item.activacion) || 0;
-        promedios.valencia += parseFloat(item.valencia) || 0;
-        promedios.atencion += parseFloat(item.atencion) || 0;
+        if (item.activacion !== 0) {
+          promedios.activacion += parseFloat(item.activacion) || 0;
+          contadores.activacion++;
+        }
+        if (item.valencia !== 0) {
+          promedios.valencia += parseFloat(item.valencia) || 0;
+          contadores.valencia++;
+        }
+        if (item.atencion !== 0) {
+          promedios.atencion += parseFloat(item.atencion) || 0;
+          contadores.atencion++;
+        }
       });
-      promedios.activacion /= grupo.analisis.length;
-      promedios.valencia /= grupo.analisis.length;
-      promedios.atencion /= grupo.analisis.length;
+  
+      if (contadores.activacion > 0) {
+        promedios.activacion /= contadores.activacion;
+      }
+      if (contadores.valencia > 0) {
+        promedios.valencia /= contadores.valencia;
+      }
+      if (contadores.atencion > 0) {
+        promedios.atencion /= contadores.atencion;
+      }
     }
-
+  
     // Calcular promedios de participaciones
     if (grupo.participaciones.length > 0) {
       grupo.participaciones.forEach(item => {
-        promedios.angry += parseFloat(item.angry) || 0;
-        promedios.disgust += parseFloat(item.disgust) || 0;
-        promedios.fear += parseFloat(item.fear) || 0;
-        promedios.happy += parseFloat(item.happy) || 0;
-        promedios.sad += parseFloat(item.sad) || 0;
-        promedios.surprise += parseFloat(item.surprise) || 0;
-        promedios.neutral += parseFloat(item.neutral) || 0;
+        if (item.angry !== 0) {
+          promedios.angry += parseFloat(item.angry) || 0;
+          contadores.angry++;
+        }
+        if (item.disgust !== 0) {
+          promedios.disgust += parseFloat(item.disgust) || 0;
+          contadores.disgust++;
+        }
+        if (item.fear !== 0) {
+          promedios.fear += parseFloat(item.fear) || 0;
+          contadores.fear++;
+        }
+        if (item.happy !== 0) {
+          promedios.happy += parseFloat(item.happy) || 0;
+          contadores.happy++;
+        }
+        if (item.sad !== 0) {
+          promedios.sad += parseFloat(item.sad) || 0;
+          contadores.sad++;
+        }
+        if (item.surprise !== 0) {
+          promedios.surprise += parseFloat(item.surprise) || 0;
+          contadores.surprise++;
+        }
+        if (item.neutral !== 0) {
+          promedios.neutral += parseFloat(item.neutral) || 0;
+          contadores.neutral++;
+        }
       });
-      promedios.angry /= grupo.participaciones.length;
-      promedios.disgust /= grupo.participaciones.length;
-      promedios.fear /= grupo.participaciones.length;
-      promedios.happy /= grupo.participaciones.length;
-      promedios.sad /= grupo.participaciones.length;
-      promedios.surprise /= grupo.participaciones.length;
-      promedios.neutral /= grupo.participaciones.length;
+  
+      if (contadores.angry > 0) {
+        promedios.angry /= contadores.angry;
+      }
+      if (contadores.disgust > 0) {
+        promedios.disgust /= contadores.disgust;
+      }
+      if (contadores.fear > 0) {
+        promedios.fear /= contadores.fear;
+      }
+      if (contadores.happy > 0) {
+        promedios.happy /= contadores.happy;
+      }
+      if (contadores.sad > 0) {
+        promedios.sad /= contadores.sad;
+      }
+      if (contadores.surprise > 0) {
+        promedios.surprise /= contadores.surprise;
+      }
+      if (contadores.neutral > 0) {
+        promedios.neutral /= contadores.neutral;
+      }
     }
-
+  
     return promedios;
   };
-
   const datosAgrupados = datosCombinados ? agruparDatosPorIdSeccion(datosCombinados) : [];
+
+  const descargarJSON = () => {
+    const datosConPromedios = datosAgrupados.map((grupo) => {
+      const promedios = calcularPromedios(grupo);
+      const informe = grupo.informes[0] || {};
+
+      return {
+        idSeccion: grupo.idSeccion,
+        ...promedios,
+        objetivosTotales: informe.objetivosTotales || '-',
+        aciertos: informe.aciertos || '-',
+        erroresTotales: informe.erroresTotales || '-',
+        efectividadTotal: informe.efectividadTotal || '-',
+        indiceConcentracion: informe.indiceConcentracion || '-',
+        indiceVariacion: informe.indiceVariacion || '-',
+        velocidadTrabajo: informe.velocidadTrabajo || '-',
+        precision_info: informe.precision_info || '-',
+      };
+    });
+
+    const datosJSON = JSON.stringify(datosConPromedios, null, 2);
+    const blob = new Blob([datosJSON], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'datos_combinados.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div className="report-total-container">
       {error && <p className="error-message">{error}</p>}
+      <NrcSelector nrc={nrc} setNrc={setNrc} />
       <div className="report-content">
         <h2>Participantes</h2>
+        <button className="download-button" onClick={descargarJSON}>Descargar JSON</button>
         <table>
           <thead>
             <tr>
-              <th>ID Sección</th>
+              <th>ID Test</th>
               <th>Activación</th>
               <th>Valencia</th>
               <th>Atención</th>
@@ -150,7 +249,7 @@ function ReportTotal() {
           <tbody>
             {datosAgrupados.map((grupo) => {
               const promedios = calcularPromedios(grupo);
-              const informe = grupo.informes[0] || {}; // Tomar el primer informe (si existe)
+              const informe = grupo.informes[0] || {};
               return (
                 <tr key={grupo.idSeccion}>
                   <td>{grupo.idSeccion}</td>
