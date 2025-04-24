@@ -24,7 +24,7 @@ async function initAiSdk(videoElement) {
 
   aiSdkInstance = await globalThis.CY.loader()
     // TODO INSERT YOUR LICENSE KEY HERE
-    .licenseKey("sk1adc2fda832c9f566f2b9154ad14c768650d34eaef1b") // <--- ##############
+    .licenseKey("sk7ef8fc580e22225c149e85ab4b8c327b7d38ca13625d") // <--- ##############
     .source(source)
     .addModule(globalThis.CY.modules().FACE_DETECTOR.name)
     .addModule(globalThis.CY.modules().FACE_EMOTION.name, {
