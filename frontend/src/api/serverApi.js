@@ -22,6 +22,64 @@ export const saveEmotionData = async (emotionData) => {
   }
 };
 
+/*// Array para acumular las emociones
+let emotionBatch = [];
+const BATCH_SIZE = 10; // Enviar cada 10 emociones
+const BATCH_TIMEOUT = 30000; // O enviar después de 30 segundos (lo que ocurra primero)
+let batchTimeout = null;
+
+export const saveEmotionData = async (emotionData) => {
+  // Agregar la nueva emoción al batch
+  emotionBatch.push(emotionData);
+  
+  // Verificar si debemos enviar
+  if (emotionBatch.length >= BATCH_SIZE) {
+    return sendBatch();
+  }
+  
+  // Configurar timeout si es el primer elemento del batch
+  if (emotionBatch.length === 1) {
+    batchTimeout = setTimeout(() => {
+      sendBatch();
+    }, BATCH_TIMEOUT);
+  }
+};
+
+// Función para enviar el batch acumulado
+const sendBatch = async () => {
+  if (batchTimeout) {
+    clearTimeout(batchTimeout);
+    batchTimeout = null;
+  }
+  
+  if (emotionBatch.length === 0) return;
+  
+  // Copiar el batch actual y limpiar
+  const batchToSend = [...emotionBatch];
+  emotionBatch = [];
+  
+  try {
+    const response = await fetch(`${API_URL}/participantessesiones/batch`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ emotions: batchToSend }),
+    });
+
+    if (!response.ok) {
+      // Si falla, volver a poner los datos en el batch (excepto si es error del servidor)
+      emotionBatch.unshift(...batchToSend);
+      throw new Error('Error al enviar datos al servidor');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error al enviar datos al servidor:', error);
+    throw error;
+  }
+};*/
+
 export const obtenerResultadoPorSeccionParticipanteSId = async (idSeccion) => {
   try {
     const response = await fetch(`${API_URL}/participantessesiones/result/${idSeccion}`, {
