@@ -22,63 +22,71 @@ export const saveEmotionData = async (emotionData) => {
   }
 };
 
-/*// Array para acumular las emociones
-let emotionBatch = [];
-const BATCH_SIZE = 10; // Enviar cada 10 emociones
-const BATCH_TIMEOUT = 30000; // O enviar después de 30 segundos (lo que ocurra primero)
-let batchTimeout = null;
+/*let emotionDataArray = []; // Aquí se acumulan todas las emociones durante 5 minutos
 
-export const saveEmotionData = async (emotionData) => {
-  // Agregar la nueva emoción al batch
-  emotionBatch.push(emotionData);
-  
-  // Verificar si debemos enviar
-  if (emotionBatch.length >= BATCH_SIZE) {
-    return sendBatch();
+// Función para agregar una nueva lectura de emociones
+export const addEmotionData = (newEmotionData) => {
+  emotionDataArray.push(newEmotionData);
+};
+
+// Función para calcular el promedio de las emociones
+const calculateEmotionAverages = () => {
+  const total = {
+    angry: 0,
+    disgust: 0,
+    fear: 0,
+    happy: 0,
+    sad: 0,
+    surprise: 0,
+    neutral: 0
+  };
+
+  emotionDataArray.forEach(data => {
+    total.angry += data.angry;
+    total.disgust += data.disgust;
+    total.fear += data.fear;
+    total.happy += data.happy;
+    total.sad += data.sad;
+    total.surprise += data.surprise;
+    total.neutral += data.neutral;
+  });
+
+  const count = emotionDataArray.length;
+
+  // Calculamos el promedio
+  const averages = {
+    angry: total.angry / count,
+    disgust: total.disgust / count,
+    fear: total.fear / count,
+    happy: total.happy / count,
+    sad: total.sad / count,
+    surprise: total.surprise / count,
+    neutral: total.neutral / count
+  };
+
+  return averages;
+};
+
+// Función para enviar el promedio de emociones al servidor
+export const sendEmotionAverages = async () => {
+  if (emotionDataArray.length === 0) {
+    console.warn('No hay datos de emociones para enviar.');
+    return;
   }
-  
-  // Configurar timeout si es el primer elemento del batch
-  if (emotionBatch.length === 1) {
-    batchTimeout = setTimeout(() => {
-      sendBatch();
-    }, BATCH_TIMEOUT);
+
+  const averages = calculateEmotionAverages();
+  try {
+    await saveEmotionData(averages);
+    console.log('Promedio de emociones enviado exitosamente.');
+  } catch (error) {
+    console.error('Error al enviar promedio de emociones:', error);
+  } finally {
+    // Limpiamos el array para el siguiente periodo
+    emotionDataArray = [];
   }
 };
 
-// Función para enviar el batch acumulado
-const sendBatch = async () => {
-  if (batchTimeout) {
-    clearTimeout(batchTimeout);
-    batchTimeout = null;
-  }
-  
-  if (emotionBatch.length === 0) return;
-  
-  // Copiar el batch actual y limpiar
-  const batchToSend = [...emotionBatch];
-  emotionBatch = [];
-  
-  try {
-    const response = await fetch(`${API_URL}/participantessesiones/batch`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ emotions: batchToSend }),
-    });
-
-    if (!response.ok) {
-      // Si falla, volver a poner los datos en el batch (excepto si es error del servidor)
-      emotionBatch.unshift(...batchToSend);
-      throw new Error('Error al enviar datos al servidor');
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Error al enviar datos al servidor:', error);
-    throw error;
-  }
-};*/
+*/
 
 export const obtenerResultadoPorSeccionParticipanteSId = async (idSeccion) => {
   try {
