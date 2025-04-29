@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import "./componentCSS/emotionBarsComponent.css";
 import SingleBarComponent from "./SingleBarComponent";
-import { saveEmotionData } from "../api/serverApi"; // Asegúrate de que la ruta sea correcta
+import { saveEmotionData } from "../api/serverApi";
 
-const EmotionBarsComponent = ({ videoEl, idSesion }) => {
+const EmotionBarsComponent = ({ videoEl, idSesion, testComplete, showDuringResults }) => {
+  const emotionHistory = useRef([]);
   const [enojo, setEnojo] = useState(0);
   const [disgusto, setDisgusto] = useState(0);
   const [miedo, setMiedo] = useState(0);
@@ -51,21 +52,67 @@ const EmotionBarsComponent = ({ videoEl, idSesion }) => {
 
     bindEvent();
 
-    const interval = setInterval(async () => {
-      try {
-        const emotionData = {
-          ...emotionsRef.current,
-          idSeccion: idSesion, // Añade idSesion a los datos de emoción
-        };
-        await saveEmotionData(emotionData);
-        console.log("Datos de emoción enviados al servidor:", emotionData);
-      } catch (error) {
-        console.error('Error al enviar datos al servidor:', error);
-      }
-    }, 5000);
-
-    return () => clearInterval(interval);
+  
   }, [idSesion]);
+
+  useEffect(() => {
+    // Guardar datos en el historial cada segundo
+    const historyInterval = setInterval(() => {
+      if (!testComplete) {
+        emotionHistory.current.push({
+          ...emotionsRef.current,
+          timestamp: Date.now()
+        });
+      }
+    }, 1000);
+
+    return () => clearInterval(historyInterval);
+  }, [testComplete]);
+
+  useEffect(() => {
+    if (testComplete) {
+      console.log("Test completado - EmotionBarsComponent");
+      
+      // Filtrar valores cero y calcular promedios
+      const filteredHistory = emotionHistory.current.filter(entry => 
+        entry.angry > 0 || entry.disgust > 0 || entry.fear > 0 || 
+        entry.happy > 0 || entry.sad > 0 || entry.surprise > 0 || entry.neutral > 0
+      );
+
+      if (filteredHistory.length > 0) {
+        const sum = filteredHistory.reduce((acc, entry) => {
+          return {
+            angry: acc.angry + entry.angry,
+            disgust: acc.disgust + entry.disgust,
+            fear: acc.fear + entry.fear,
+            happy: acc.happy + entry.happy,
+            sad: acc.sad + entry.sad,
+            surprise: acc.surprise + entry.surprise,
+            neutral: acc.neutral + entry.neutral
+          };
+        }, {
+          angry: 0, disgust: 0, fear: 0, 
+          happy: 0, sad: 0, surprise: 0, neutral: 0
+        });
+
+        const averages = {
+          angry: sum.angry / filteredHistory.length,
+          disgust: sum.disgust / filteredHistory.length,
+          fear: sum.fear / filteredHistory.length,
+          happy: sum.happy / filteredHistory.length,
+          sad: sum.sad / filteredHistory.length,
+          surprise: sum.surprise / filteredHistory.length,
+          neutral: sum.neutral / filteredHistory.length,
+          idSeccion: idSesion
+        };
+
+        console.log("Promedios de emociones:", averages);
+        saveEmotionData(averages)
+          .then(() => console.log("Datos finales de emociones enviados"))
+          .catch(err => console.error("Error enviando datos finales:", err));
+      }
+    }
+  }, [testComplete, idSesion]);
 
   return (
     <div id="emotionsContainer">

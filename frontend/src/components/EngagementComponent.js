@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { saveAnalisisAtention } from "../api/serverApi";
 import "./componentCSS/engagementComponent.css";
 
-const ComponenteCompromiso = ({ videoEl, idSesion }) => {
+const ComponenteCompromiso = ({ videoEl, idSesion, testComplete, showDuringResults }) => {
+  const engagementHistory = useRef([]);
   const [activacion, setActivacion] = useState(0);
   const [valencia, setValencia] = useState(0);
   const [atencion, setAtencion] = useState(0);
@@ -77,22 +78,53 @@ const ComponenteCompromiso = ({ videoEl, idSesion }) => {
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(async () => {
-      const data = {
-        ...engagementRef.current,
-        idSeccion: idSesion, // Añade idSesion a los datos de compromiso
-      };
-
-      try {
-        await saveAnalisisAtention(data);
-        console.log("Datos enviados al servidor de compromiso:", data);
-      } catch (error) {
-        console.error('Error al enviar datos al servidor:', error);
+    // Guardar datos en el historial cada segundo
+    const historyInterval = setInterval(() => {
+      if (!testComplete) {
+        engagementHistory.current.push({
+          activacion: engagementRef.current.activacion,
+          valencia: engagementRef.current.valencia,
+          atencion: engagementRef.current.atencion,
+          timestamp: Date.now()
+        });
       }
-    }, 5000);
+    }, 1000);
 
-    return () => clearInterval(interval);
-  }, [idSesion]);
+    return () => clearInterval(historyInterval);
+  }, [testComplete]);
+
+  useEffect(() => {
+    if (testComplete) {
+      console.log("Test completado - EngagementComponent");
+      
+      // Filtrar valores cero y calcular promedios
+      const filteredHistory = engagementHistory.current.filter(entry => 
+        entry.activacion > 0 || entry.valencia > 0 || entry.atencion > 0
+      );
+
+      if (filteredHistory.length > 0) {
+        const sum = filteredHistory.reduce((acc, entry) => {
+          return {
+            activacion: acc.activacion + entry.activacion,
+            valencia: acc.valencia + entry.valencia,
+            atencion: acc.atencion + entry.atencion
+          };
+        }, { activacion: 0, valencia: 0, atencion: 0 });
+
+        const averages = {
+          activacion: sum.activacion / filteredHistory.length,
+          valencia: sum.valencia / filteredHistory.length,
+          atencion: sum.atencion / filteredHistory.length,
+          idSeccion: idSesion
+        };
+
+        console.log("Promedios de engagement:", averages);
+        saveAnalisisAtention(averages)
+          .then(() => console.log("Datos finales de engagement enviados"))
+          .catch(err => console.error("Error enviando datos finales:", err));
+      }
+    }
+  }, [testComplete, idSesion]);
 
   return (
     <>

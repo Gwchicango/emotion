@@ -105,9 +105,11 @@ const D2AttentionTest = () => {
       const fechaHoraFin = new Date().toISOString();
       const fechaHoraInicio = fechaInicio;
       await modificarSeccion(idSesion, { fechaHoraFin, fechaHoraInicio });
+      console.log("Llamando a endTest() - Marcando testComplete como true");
       setIsActive(false);
       setTestComplete(true);
       setShowReportButton(true);
+      console.log("Estado actual:", {isActive, testComplete, showReportButton});
     } catch (error) {
       console.error('Error al finalizar el test y guardar la hora de finalización:', error);
     }
@@ -211,12 +213,12 @@ const D2AttentionTest = () => {
           if (prev <= 1) {
             if (currentLine < 13) {
               setCurrentLine((prev) => prev + 1);
-              return 20;
+              return 1;
             } else {
-              endTest(); // Llama a endTest cuando el test se complete
               setIsActive(false);
               setTestComplete(true);
-              setShowReportButton(true); // Mostrar el botón de reporte al finalizar el test
+              setShowReportButton(true);
+              endTest(); // Mover endTest aquí para que se ejecute después de actualizar los estados
               return 0;
             }
           }
@@ -481,20 +483,30 @@ const D2AttentionTest = () => {
         )}
       </div>
 
-            {isActive && (
-        <div className="floating-video-container">
-          <div className="timer-container">
-            <div className="timer">
-              <Timer className="icon" />
-              <span>{timeLeft}s</span>
+        <div className={`floating-video-container ${!isActive ? 'results-mode' : ''}`}>
+          {isActive && (
+            <div className="timer-container">
+              <div className="timer">
+                <Timer className="icon" />
+                <span>{timeLeft}s</span>
+              </div>
+              <div className="line-info">Línea {currentLine + 1}/14</div>
             </div>
-            <div className="line-info">Línea {currentLine + 1}/14</div>
-          </div>
+          )}
           <FaceTrackerComponent videoEl={videoEl} idSesion={idSesion}></FaceTrackerComponent>
-          <EmotionBarsComponent videoEl={videoEl} idSesion={idSesion}></EmotionBarsComponent>
-          <EngagementComponent videoEl={videoEl} idSesion={idSesion}></EngagementComponent>
+          <EmotionBarsComponent 
+            videoEl={videoEl} 
+            idSesion={idSesion} 
+            testComplete={testComplete}
+            showDuringResults={true}
+          ></EmotionBarsComponent>
+          <EngagementComponent 
+            videoEl={videoEl} 
+            idSesion={idSesion} 
+            testComplete={testComplete}
+            showDuringResults={true}
+          ></EngagementComponent>
         </div>
-      )}
 
       
     </div>
