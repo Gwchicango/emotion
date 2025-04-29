@@ -213,7 +213,7 @@ const D2AttentionTest = () => {
           if (prev <= 1) {
             if (currentLine < 13) {
               setCurrentLine((prev) => prev + 1);
-              return 1;
+              return 20;
             } else {
               setIsActive(false);
               setTestComplete(true);
