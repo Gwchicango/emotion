@@ -178,9 +178,9 @@ function Register() {
               required
             >
               <option value="">Selecciona tu NRC</option>
-              <option value="3387">3387</option>
-              <option value="3391">3391</option>
-              <option value="3393">3393</option>
+              <option value="20471">20471</option>
+              <option value="20497">20497</option>
+              <option value="20512">20512</option>
               <option value="1946">1946</option>
               <option value="1947">1947</option>
               <option value="1948">1948</option>
